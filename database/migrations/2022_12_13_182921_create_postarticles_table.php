@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('postarticles', function (Blueprint $table) {
             $table->id();
-            $table->string('titre');
-            $table->string('type');
-            $table->string('categorie');
-            $table->mediumtext('corps du texte');
-            $table->string('image');
+            $table->string('Titre');
+            $table->string('Type');
+            $table->string('Categorie');
+            $table->string('Etiquette');
+            $table->string('Image');
+            $table->mediumtext('Texte');
             $table->timestamps();
         });
     }

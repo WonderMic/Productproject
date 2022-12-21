@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,44 +47,76 @@
   </div>
 </nav>
 <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-                align-items: center;
+textarea { resize: none; }
+.card { width: 25em; }
+</style>
 
-            }
-        </style>
-        <h1> Le formulaire </h1>
+@extends('product')
+@section('contenu')
+    <br>
+    <div class="container">
+        <div class="row card text-white bg-dark">
+            <h4 class="card-header">Le formulaire</h4>
+            <div class="card-body">
+                <form action="{{ url('product') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="text" class="form-control  @error('Titre') is-invalid @enderror" name="Titre" id="Titre" placeholder="Veuillez entrez le titre" value="{{ old('Titre') }}">
+                        @error('Titre')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                    <select class="form-select  @error('Type') is-invalid @enderror"  aria-label="Default select example" id="Type" name="Type" value="{{ old('Type') }}">
+                        <option selected>Quel est le type d'article?</option>
+                        <option value="Vetements">Vetements</option>
+                        <option value="Chaussure">Chaussure</option>
+                        <option value="Accesoire">Accesoire</option>
+                        <option value="autre">Autre...</option>
+                      </select>
+                      @error('Categorie')
+                      <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
 
-    <form action="/product" method="POST">
-        @csrf
-    <div class="w-50 p-3">
-  <label for="Titre" class="form-label">Entrez le titre de produit :</label>
-  <input type="Titre" class="form-control" id="Titre" name="Titre">
-</div>
-<select class="form-select w-50 p-3" aria-label="Default select example" id="Type" name="Type">
-  <option selected>Quel est le type d'article?</option>
-  <option value="Vetements">Vetements</option>
-  <option value="Chaussure">Chaussure</option>
-  <option value="Accesoire">Accesoire</option>
-  <option value="autre">Autre...</option>
-</select>
-<div class="w-50 p-3">
-  <label for="Categorie" class="form-label">Entrez la categorie du produit :</label>
-  <input type="Categorie" class="form-control" id="Categorie" name="Categorie" >
-</div>
-<div class="w-50 p-3">
-  <label for="Titre" class="form-label">Etiquette du produit : </label>
-  <input type="Etiquette" class="form-control" id="Etiquette" name="Etiquette">
-</div>
-<div class="w-50 p-3">
-  <label for="Texte" class="form-label">Veuiller entrer un texte :</label>
-  <textarea class="form-control" id="Texte" rows="3" name="Texte"></textarea>
-</div>
+                      <div class="mb-3">
+                        <input type="text" class="form-control  @error('Categorie') is-invalid @enderror" name="Categorie" id="Categorie" placeholder="Entrez la categorie de l'article" value="{{ old('Categorie') }}">
+                        @error('Categorie')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
 
-<button type="submit" class="btn btn-primary">Primary</button>
-    </form>
+                      <div class="mb-3">
+                        <input type="text" class="form-control  @error('Etiquette') is-invalid @enderror" name="Etiquette" id="Etiquette" placeholder="Entrez l'etiquette" value="{{ old('Etiquette') }}">
+                        @error('Etiquette')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
 
+                      <div class="mb-3">
+                        <input type="file" class="form-control  @error('Image') is-invalid @enderror" name="Image" id="Categorie" placeholder="Selectionne une image" value="{{ old('Image') }}">
+                        @error('Image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
 
+                    <div class="mb-3">
+                        <textarea class="form-control  @error('Texte') is-invalid @enderror" name="Texte" id="Texte" placeholder="Entrez un texte " value="{{ old('Texte') }}"> Veuillez entrer un texte  </textarea>
+                        @error('message')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary">Envoyer !</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+<br>
+    <br>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     </body>
 </html>
